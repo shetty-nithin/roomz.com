@@ -6,14 +6,22 @@ import { useState } from "react";
 import { format } from "date-fns";
 import { DateRange } from "react-date-range";
 import SearchItem from "../../components/searchItem/SearchItem";
+import useFetch from "../../hooks/useFetch";
 
 const HotelsPage = () => {
     const location = useLocation();
     const [destination, setDestination] = useState(location.state.destination);
-    const [date, setDate] = useState(location.state.date);
+    const [dates, setDates] = useState(location.state.dates);
     const [openDate, setOpenDate] = useState(false);
-    const [options, setOptions] = useState(location.state.options)
+    const [options, setOptions] = useState(location.state.options);
+    const [min, setMin] = useState(undefined);
+    const [max, setMax] = useState(undefined);
+    const {data, loading, error, refetchData } = useFetch(`/v1/hotels?city=${destination}&min=${min || 0}&max=${max || 9999}`);
 
+    const handleClick = () => {
+        refetchData()
+    }
+    
     return (
         <div>
             <Navbar/>
@@ -28,11 +36,11 @@ const HotelsPage = () => {
                         </div>
                         <div className="hsItem">
                             <label>Check-in Date</label>
-                            <span onClick={() => setOpenDate(!openDate)}>{`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(date[0].endDate, "MM/dd/yyyy")}`}</span>
+                            <span onClick={() => setOpenDate(!openDate)}>{`${format(dates[0].startDate, "MM/dd/yyyy")} to ${format(dates[0].endDate, "MM/dd/yyyy")}`}</span>
                             {openDate && (<DateRange
-                                onChange={item => setDate([item.selection])} 
+                                onChange={item => setDates([item.selection])} 
                                 minDate={new Date()}
-                                ranges={date}
+                                ranges={dates}
                             />)}
                         </div>
                         <div className="hsItem">
@@ -40,11 +48,11 @@ const HotelsPage = () => {
                             <div className="hsOptions">
                                 <div className="hsOptionItem">
                                     <span className="hsOptionText">Min Price<small> per night</small></span>
-                                    <input type="number" className="hsOptionInput" />
+                                    <input type="number" className="hsOptionInput" onChange={e => setMin(e.target.value)}/>
                                 </div>
                                 <div className="hsOptionItem">
                                     <span className="hsOptionText">Max Price<small> per night</small></span>
-                                    <input type="number" className="hsOptionInput" />
+                                    <input type="number" className="hsOptionInput" onChange={e => setMax(e.target.value)}/>
                                 </div>
                                 <div className="hsOptionItem">
                                     <span className="hsOptionText">Adult</span>
@@ -60,17 +68,17 @@ const HotelsPage = () => {
                                 </div>
                             </div>
                         </div>
-                        <button>Search</button>
+                        <button onClick={handleClick}>Search</button>
                     </div>
                     <div className="hotelsResult">
-                        <SearchItem/>
-                        <SearchItem/>
-                        <SearchItem/>
-                        <SearchItem/>
-                        <SearchItem/>
-                        <SearchItem/>
-                        <SearchItem/>
-                        <SearchItem/>
+                        {loading 
+                            ? "Loading... " 
+                            : <>
+                                {data.map(item => (
+                                    <SearchItem item={item} key={item._id}/>
+                                ))}
+                            </>
+                        }
                     </div>
                 </div>
             </div>
