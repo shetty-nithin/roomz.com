@@ -12,11 +12,19 @@ const Navbar = () => {
                 <Link to="/" style={{color: "inherit", textDecoration: "none"}}>
                     <span className="logo">roomz</span>
                 </Link>
-                {user ? user.username : 
-                    <div className="navItems">
+                {user 
+                    ? (<div className="navItems">
+                        <span>{user.username}</span>
+                        <Link to="/login" onClick={() => localStorage.removeItem("user")}>
+                            <button className="navButton">Logout</button>
+                        </Link>
+                    </div>)
+                    : (<div className="navItems">
                         <button className="navButton">Register</button>
-                        <Link to="/login"><button className="navButton">Login</button></Link>
-                    </div>
+                        <Link to="/login">
+                            <button className="navButton">Login</button>
+                        </Link>
+                    </div>)
                 }
             </div>
         </div>

@@ -1,32 +1,49 @@
-import useFetch from "../../hooks/useFetch";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { SearchContext } from "../../context/SearchContext";
 import "./PropertyList.css";
 
 const PropertyList = () => {
-    const {data, loading, error } = useFetch("/v1/hotels/countByType");
-    const images = [
-        "https://images.pexels.com/photos/338504/pexels-photo-338504.jpeg?cs=srgb&dl=pexels-thorsten-technoman-338504.jpg&fm=jpg",
-        "https://images.pexels.com/photos/1458457/pexels-photo-1458457.jpeg?cs=srgb&dl=pexels-jimmy-chan-1458457.jpg&fm=jpg",
-        "https://images.pexels.com/photos/96444/pexels-photo-96444.jpeg?cs=srgb&dl=pexels-francesco-ungaro-96444.jpg&fm=jpg",
-        "https://images.pexels.com/photos/53464/sheraton-palace-hotel-lobby-architecture-san-francisco-53464.jpeg?cs=srgb&dl=pexels-pixabay-53464.jpg&fm=jpg",
-        "https://images.pexels.com/photos/774042/pexels-photo-774042.jpeg?cs=srgb&dl=pexels-min-an-774042.jpg&fm=jpg"
+    const properties = [
+        {type: "hotel", img: "https://images.pexels.com/photos/70441/pexels-photo-70441.jpeg?cs=srgb&dl=pexels-amar-saleem-70441.jpg&fm=jpg"},
+        {type: "apartment", img: "https://images.pexels.com/photos/439391/pexels-photo-439391.jpeg?cs=srgb&dl=pexels-sevenstorm-juhaszimrus-439391.jpg&fm=jpg"},
+        {type: "resort", img: "https://images.pexels.com/photos/237272/pexels-photo-237272.jpeg?cs=srgb&dl=pexels-pixabay-237272.jpg&fm=jpg"},
+        {type: "villa", img: "https://images.pexels.com/photos/2476632/pexels-photo-2476632.jpeg?cs=srgb&dl=pexels-quang-nguyen-vinh-2476632.jpg&fm=jpg"},
+        {type: "cabin", img: "https://images.pexels.com/photos/1619311/pexels-photo-1619311.jpeg?cs=srgb&dl=pexels-james-wheeler-1619311.jpg&fm=jpg"}
     ];
+
+    const [dates, setDates] = useState([
+        {startDate : new Date(),
+        endDate : new Date(),
+        key : "selection"}
+    ]);
+    const [destination, setDestination] = useState("");
+    const [propertyType, setPropertyType] = useState("");
+    const [options, setOptions] = useState({
+        adult : 1,
+        children : 0,
+        room : 1
+    })
+
+    const { dispatch } = useContext(SearchContext);
+    const navigate = useNavigate();
+
+    const handleSearch = () => {
+        dispatch({propertyType: "NEW_SEARCH", payload: {propertyType, destination, dates, options}});
+        navigate(`/hotels`, {state : {propertyType, destination, dates, options}});
+    }
+
     
     return (
         <div className="pList">
-            {loading 
-                ? ("Loading...") 
-                : (<>
-                    {data && images.map((img, i) => (
-                        <div className="pListItem" key={i}>
-                            <img src={img} alt="" className="pListImg" />
-                            <div className="pListTitle">
-                                <h1>{data[i]?.type}</h1>
-                                <h2>{data[i]?.count} {data[i]?.type}</h2>
-                            </div>
-                        </div>
-                    ))}
-                </>)
-            }
+            {properties.map((property) => (
+                <div className="pListItem" key={property.type}>
+                    <img onMouseEnter={() => setPropertyType(property.type)} onClick={(e) => handleSearch()} src={property.img} alt="" className="pListImg" />
+                    <div className="pListTitle">
+                        <h1>{property.type}</h1>
+                    </div>
+                </div>
+            ))}
         </div>
     )
 }

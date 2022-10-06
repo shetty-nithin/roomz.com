@@ -13,10 +13,11 @@ const HomePage = () => {
             <Navbar/>
             <Header/>
             <div className="homeContainer">
+                <h1 className="homeTitle">Browse by City</h1>
                 <Featured/>
                 <h1 className="homeTitle">Browse by property type</h1>
                 <PropertyList/>
-                <h1 className="homeTitle">Home guests love</h1>
+                <h1 className="homeTitle">Browse by Hotel</h1>
                 <HomeGuests/>
                 <MailList/>
                 <Footer/>

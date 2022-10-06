@@ -11,12 +11,13 @@ import useFetch from "../../hooks/useFetch";
 const HotelsPage = () => {
     const location = useLocation();
     const [destination, setDestination] = useState(location.state.destination);
+    const [propertyType, setPropertyType] = useState(location.state.propertyType);
     const [dates, setDates] = useState(location.state.dates);
     const [openDate, setOpenDate] = useState(false);
     const [options, setOptions] = useState(location.state.options);
     const [min, setMin] = useState(undefined);
     const [max, setMax] = useState(undefined);
-    const {data, loading, error, refetchData } = useFetch(`/v1/hotels?city=${destination}&min=${min || 0}&max=${max || 9999}`);
+    const {data, loading, error, refetchData } = useFetch(`/v1/hotels?city=${destination || "Banglore"}&min=${min || 0}&max=${max || 9999}&type=${propertyType || "hotel"}`);
 
     const handleClick = () => {
         refetchData()
@@ -32,7 +33,11 @@ const HotelsPage = () => {
                         <h1 className="hsTitle">Search</h1>
                         <div className="hsItem">
                             <label>Destination</label>
-                            <input placeholder={destination} type="text" />
+                            <input onChange={e => setDestination(e.target.value)} placeholder={destination} type="text" />
+                        </div>
+                        <div className="hsItem">
+                            <label>Property Type</label>
+                            <input onChange={e => setPropertyType(e.target.value)} placeholder={propertyType} type="text" />
                         </div>
                         <div className="hsItem">
                             <label>Check-in Date</label>

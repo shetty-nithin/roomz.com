@@ -34,6 +34,7 @@ const LoginPage = () => {
     return (
         <div className="loginPage">
             <div className="loginContainer">
+                <div className="title">roomZ.com</div>
                 <input type="text" placeholder="username" id="username" onChange={handleChange} className="loginInput" />
                 <input type="password" placeholder="password" id="password" onChange={handleChange} className="loginInput" />
                 <button disabled={loading} onClick={handleLogin} className="loginButton">Login</button>

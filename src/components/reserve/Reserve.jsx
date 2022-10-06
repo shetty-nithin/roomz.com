@@ -8,30 +8,31 @@ import { SearchContext } from "../../context/SearchContext";
 import useFetch from "../../hooks/useFetch";
 import "./Reserve.css";
 
+
 const Reserve = ({setOpenFloor, hotelId}) => {
     const [selectedRooms, setSelectedRooms] = useState([]);
-    const { data, loading, error } = useFetch(`/v1/hotels/rooms/${hotelId}`);
+    const { data } = useFetch(`/v1/hotels/rooms/${hotelId}`);
     const { dates } = useContext(SearchContext);
 
     const getDatesInRange = (startDate, endDate) => {
         const start = new Date(startDate);
         const end = new Date(endDate);
         let list = [];
-
         const date = new Date(start.getTime());
-
+        
         while(date <= end){
             list.push(new Date(date).getTime());
             date.setDate(date.getDate()+1);
         }
-
         return list;
     }
 
     const allDates = getDatesInRange(dates[0].startDate, dates[0].endDate);
-    const isAvailable = (roomNumber) => {
-        const isFound = roomNumber.unavailableDates.some(date => allDates.includes(new Date(date).getTime()));
 
+    const isAvailable = (roomNumber) => {
+        const isFound = roomNumber.unavailableDates.some(date => {
+            allDates.includes(new Date(date).getTime())
+        });
         return !isFound;
     }
 
@@ -39,7 +40,10 @@ const Reserve = ({setOpenFloor, hotelId}) => {
         const checked = e.target.checked;
         const value = e.target.value;
 
-        setSelectedRooms(checked ? [...selectedRooms, value] : selectedRooms.filter(item => (item !== value)))
+        setSelectedRooms(checked 
+            ? [...selectedRooms, value] 
+            : selectedRooms.filter(item => (item !== value))
+        )
     };
 
     const navigate = useNavigate();
@@ -53,19 +57,28 @@ const Reserve = ({setOpenFloor, hotelId}) => {
 
             const findRoomNumbers = (roomNumbers) => {
                 let rooms = [];
+
                 roomNumbers.map(roomNumber => {
                     rooms.push(roomNumber.number);
                 });
-
                 return rooms;
             }
-            
+
+            const findRoomId = (roomNumbers) => {
+                let roomIds = [];
+
+                roomNumbers.map(id => {
+                    roomIds.push(id._id);
+                });
+                return roomIds;
+            }
+
             await Promise.all(data.map(item => {
                 const res = axios.post("/v1/bookings", {
                     totalCost: allDates.length*item.price,
                     hotelId: item.hotel,
                     roomType: item.title,
-                    roomNumbers: findRoomNumbers(item.roomNumbers),
+                    roomNumbers: {number: findRoomNumbers(item.roomNumbers), id: findRoomId(item.roomNumbers)},
                     startDate: item.startDate,
                     endDate: item.endDate
                 });
@@ -76,7 +89,7 @@ const Reserve = ({setOpenFloor, hotelId}) => {
             navigate("/");
         }
         catch (err) {
-            
+            console.log(err);
         }
     }
 

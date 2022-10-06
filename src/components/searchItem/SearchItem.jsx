@@ -5,6 +5,7 @@ const SearchItem = ({item}) => {
     return (
         <div className="searchItem">
             <img src={item.photos} alt="" className="searchItemImg" />
+
             <div className="searchItemDesc">
                 <h1 className="searchItemTitle">{item.name}</h1>
                 <span className="searchItemDistance">{item.distance}m from the center</span>
@@ -14,6 +15,7 @@ const SearchItem = ({item}) => {
                 <span className="searchItemCancelOp">Free Cancellation</span>
                 <span className="searchItemCancelOpSubTitle">You can cancel later, so lock this great price today!</span>
             </div>
+            
             <div className="searchItemDetails">
                 {item.rating && 
                     <div className="searchItemRating">

@@ -11,6 +11,7 @@ import { useContext } from "react";
 import { SearchContext } from "../../context/SearchContext";
 import { AuthContext } from "../../context/AuthContext";
 
+
 const Header = ({type}) => {
     const [dates, setDates] = useState([
         {startDate : new Date(),
@@ -19,6 +20,7 @@ const Header = ({type}) => {
     ]);
     const [openDate, setOpenDate] = useState(false);
     const [destination, setDestination] = useState("");
+    const [propertyType, setPropertyType] = useState("");
     const [openOptions, setOpenOptions] = useState(false);
     const [options, setOptions] = useState({
         adult : 1,
@@ -40,8 +42,8 @@ const Header = ({type}) => {
     const { user } = useContext(AuthContext);
 
     const handleSearch = () => {
-        dispatch({type: "NEW_SEARCH", payload: {destination, dates, options}})
-         navigate("/hotels", {state : {destination, dates, options}})
+        dispatch({type: "NEW_SEARCH", payload: {propertyType, destination, dates, options}})
+        navigate("/hotels", {state : {propertyType ,destination, dates, options}})
     }
 
     return (
@@ -73,15 +75,17 @@ const Header = ({type}) => {
                 <>
                     <h1 className="headerTitle">A life of discounts? Its Genius.</h1>
                     <p className="headerDesc">
-                        Get rewarded for your travels and unlock instant savings of 10% or more with a free roomz account.
+                        Get rewarded on your bookings and unlock instant savings of 10% or more with a free roomz account.
                     </p>
                     {!user && <button className="headerBtn">SignIn/Register</button>}
+
                     <div className="headerSearch">
                         <div className="headerSearchItem">
                             <FontAwesomeIcon icon={faBed} className="headerIcon" /> 
                             <input type="text" placeholder="where are you going?" className="headerSearchInput" 
                             onChange={e => setDestination(e.target.value)}/>
                         </div>
+
                         <div className="headerSearchItem">
                             <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" /> 
                             <span onClick={() => setOpenDate(!openDate)} className="headerSearchText">{`${format(dates[0].startDate, "MM/dd/yyyy")} to ${format(dates[0].endDate, "MM/dd/yyyy")}`}</span>
@@ -94,6 +98,7 @@ const Header = ({type}) => {
                                 minDate={new Date()}
                             />}
                         </div>
+
                         <div className="headerSearchItem">
                             <FontAwesomeIcon icon={faPerson} className="headerIcon" /> 
                             <span onClick={() => setOpenOptions(!openOptions)} className="headerSearchText">{`${options.adult} adult . ${options.children} children . ${options.room} room`}</span>
@@ -124,6 +129,7 @@ const Header = ({type}) => {
                                 </div>
                             </div>}
                         </div>
+
                         <div className="headerSearchItem">
                             <button className="headerBtn" onClick={handleSearch}>Search</button>
                         </div>

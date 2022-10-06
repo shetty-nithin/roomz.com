@@ -42,8 +42,7 @@ const HotelPage = () => {
 
         if(direction === "l"){
             newSlideNumber = slideNumber === 0 ? 4 : slideNumber-1;
-        }
-        else{
+        } else{
             newSlideNumber = slideNumber === 4 ? 0 : slideNumber+1;
         }
 
@@ -53,8 +52,7 @@ const HotelPage = () => {
     const handleClick = () => {
         if(user){
             setOpenFloor(true);
-        }
-        else{
+        } else{
             navigate("/login");
         }
     }
@@ -72,7 +70,7 @@ const HotelPage = () => {
                         <div className="sliderWrapper">
                             <img src={data.photos[slideNumber]} alt="" className="sliderImg" />
                         </div>
-                        <FontAwesomeIcon icon={faCircleArrowRight} className="arrow" onClick={() => handleMove("l")}/>
+                        <FontAwesomeIcon icon={faCircleArrowRight} className="arrow" onClick={() => handleMove("r")}/>
                     </div>}
                     <div className="hotelWrapper">
                         <button className="bookNow"  onClick={handleClick}>Reserver or Book Now!</button>
@@ -81,12 +79,12 @@ const HotelPage = () => {
                             <FontAwesomeIcon icon={faLocationDot} />
                             <span>{data.address}</span>
                         </div>
-                        <span className="hotelDistance">Excellent location - {data.distance}m from center.</span>
+                        <span className="hotelDistance">Excellent location - {data.distance} from center.</span>
                         <span className="hotelPriceHighlight">Book a stay over ${data.cheapestPrice} at this property and get free airport taxi.</span>
                         <div className="hotelImages">
                             {data.photos?.map((photo, index) => (
                                 <div className="hotelImgWrapper">
-                                    <img onClick={() =>     handleOpen(index)} src={photo} alt="" className="hotelImg" />
+                                    <img onClick={() => handleOpen(index)} src={photo} alt="" className="hotelImg" />
                                 </div>
                             ))}
                         </div>
