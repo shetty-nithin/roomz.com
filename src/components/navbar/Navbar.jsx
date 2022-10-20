@@ -10,7 +10,7 @@ const Navbar = () => {
         <div className="navbar">
             <div className="navContainer">
                 <Link to="/" style={{color: "inherit", textDecoration: "none"}}>
-                    <span className="logo">roomz</span>
+                    <span className="logo">roomZ.com</span>
                 </Link>
                 {user 
                     ? (<div className="navItems">

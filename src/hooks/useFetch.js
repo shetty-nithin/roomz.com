@@ -10,25 +10,30 @@ const useFetch = (url) => {
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true); 
+            
             try {
                 const res = await axios.get(url);
                 setData(res.data);
             } catch (err) {
                setError(err);
             }
+
             setLoading(false);
         }
         fetchData();
     }, [url]);
 
+
     const refetchData = async () => {
         setLoading(true);
+
         try {
             const res = await axios.get(url);
             setData(res.data);
         } catch (err) {
             setError(err);
         }
+
         setLoading(false);
     }
     

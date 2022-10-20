@@ -7,8 +7,6 @@ const DEFAULT_STATE = {
     error: null
 };
 
-export const AuthContext = createContext(DEFAULT_STATE);
-
 const AuthReducer = (state, action) => {
     switch(action.type){
         case "LOGIN_START":
@@ -39,6 +37,8 @@ const AuthReducer = (state, action) => {
             return state
     }
 };
+
+export const AuthContext = createContext(DEFAULT_STATE);
 
 export const AuthContextProvider = ({children}) => {
     const [state, dispatch] = useReducer(AuthReducer, DEFAULT_STATE);

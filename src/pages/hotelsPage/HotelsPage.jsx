@@ -17,7 +17,7 @@ const HotelsPage = () => {
     const [options, setOptions] = useState(location.state.options);
     const [min, setMin] = useState(undefined);
     const [max, setMax] = useState(undefined);
-    const {data, loading, error, refetchData } = useFetch(`/v1/hotels?city=${destination || "Banglore"}&min=${min || 0}&max=${max || 9999}&type=${propertyType || "hotel"}`);
+    const {data, loading, refetchData } = useFetch(`/v1/hotels?city=${destination || "Banglore"}&min=${min || 0}&max=${max || 9999}&type=${propertyType || "hotel"}`);
 
     const handleClick = () => {
         refetchData()
@@ -31,14 +31,17 @@ const HotelsPage = () => {
                 <div className="hotelsWrapper">
                     <div className="hotelsSearch">
                         <h1 className="hsTitle">Search</h1>
+
                         <div className="hsItem">
                             <label>Destination</label>
                             <input onChange={e => setDestination(e.target.value)} placeholder={destination} type="text" />
                         </div>
+
                         <div className="hsItem">
                             <label>Property Type</label>
                             <input onChange={e => setPropertyType(e.target.value)} placeholder={propertyType} type="text" />
                         </div>
+
                         <div className="hsItem">
                             <label>Check-in Date</label>
                             <span onClick={() => setOpenDate(!openDate)}>{`${format(dates[0].startDate, "MM/dd/yyyy")} to ${format(dates[0].endDate, "MM/dd/yyyy")}`}</span>
@@ -48,6 +51,7 @@ const HotelsPage = () => {
                                 ranges={dates}
                             />)}
                         </div>
+
                         <div className="hsItem">
                             <label>Options</label>
                             <div className="hsOptions">
@@ -73,6 +77,7 @@ const HotelsPage = () => {
                                 </div>
                             </div>
                         </div>
+                        
                         <button onClick={handleClick}>Search</button>
                     </div>
                     <div className="hotelsResult">

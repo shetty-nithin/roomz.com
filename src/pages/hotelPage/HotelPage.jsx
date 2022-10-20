@@ -19,7 +19,7 @@ const HotelPage = () => {
     const [open, setOpen] = useState(false);
     const [openFloor, setOpenFloor] = useState(false);
 
-    const {data, loading, error } = useFetch(`/v1/hotels/find/${hotelId}`);
+    const { data, loading } = useFetch(`/v1/hotels/find/${hotelId}`);
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -72,22 +72,27 @@ const HotelPage = () => {
                         </div>
                         <FontAwesomeIcon icon={faCircleArrowRight} className="arrow" onClick={() => handleMove("r")}/>
                     </div>}
+
                     <div className="hotelWrapper">
                         <button className="bookNow"  onClick={handleClick}>Reserver or Book Now!</button>
                         <h1 className="hotelTitle">{data.name}</h1>
+                        
                         <div className="hotelAddress">
                             <FontAwesomeIcon icon={faLocationDot} />
                             <span>{data.address}</span>
                         </div>
+
                         <span className="hotelDistance">Excellent location - {data.distance} from center.</span>
-                        <span className="hotelPriceHighlight">Book a stay over ${data.cheapestPrice} at this property and get free airport taxi.</span>
+                        <span className="hotelPriceHighlight">Book a stay over Rs {data.cheapestPrice} at this property and get free airport taxi.</span>
+                        
                         <div className="hotelImages">
                             {data.photos?.map((photo, index) => (
-                                <div className="hotelImgWrapper">
+                                <div className="hotelImgWrapper" key={index}>
                                     <img onClick={() => handleOpen(index)} src={photo} alt="" className="hotelImg" />
                                 </div>
                             ))}
                         </div>
+
                         <div className="hotelDetails">
                             <div className="hotelDetailsTexts">
                                 <h1 className="hotelTitle">{data.title}</h1>
@@ -97,7 +102,7 @@ const HotelPage = () => {
                                 <h1>Perfect for a {days}-nights stay!</h1>
                                 <span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati laboriosam necessitatibus dolorum suscipit harum ea provident</span>
                                 <h2>
-                                    <b>${days*data.cheapestPrice*options.room}</b> ({days} nights)
+                                    <b>Rs {days*data.cheapestPrice*options.room}</b> ({days} nights)
                                 </h2>
                                 <button onClick={handleClick}>Reserve or Book now!</button>
                             </div>

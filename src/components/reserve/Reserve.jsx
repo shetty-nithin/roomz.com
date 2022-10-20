@@ -99,7 +99,7 @@ const Reserve = ({setOpenFloor, hotelId}) => {
                 <FontAwesomeIcon icon={faCircleXmark} className="reserveClose" onClick={() => setOpenFloor(false)}/>
                 <span>Select Room:</span>
                 {data.map(item => (
-                    <div className="reserveItem">
+                    <div className="reserveItem" key={item._id}>
                         <div className="reserveItemInfo">
                             <div className="reserveTitle">{item.title}</div>
                             <div className="reserveDesc">{item.desc}</div>
@@ -108,9 +108,9 @@ const Reserve = ({setOpenFloor, hotelId}) => {
                         </div>
                         <div className="reserveSelectRooms">
                             {item.roomNumbers.map(roomNumber => (
-                                <div className="room">
-                                        <label>{roomNumber.number}</label>
-                                        <input type="checkbox" value={roomNumber._id} onChange={handleSelect} disabled={!isAvailable(roomNumber)}/>
+                                <div className="room" key={roomNumber._id}>
+                                    <label>{roomNumber.number}</label>
+                                    <input type="checkbox" value={roomNumber._id} onChange={handleSelect} disabled={!isAvailable(roomNumber)}/>
                                 </div>
                             ))}
                         </div>

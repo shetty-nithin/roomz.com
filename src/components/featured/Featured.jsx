@@ -14,25 +14,17 @@ const Featured = () => {
         { name: "Kolkata", img: "https://images.pexels.com/photos/13739066/pexels-photo-13739066.jpeg?cs=srgb&dl=pexels-iqbal-farooz-13739066.jpg&fm=jpg"},
     ];
 
-    const [dates, setDates] = useState([
-        {startDate : new Date(),
-        endDate : new Date(),
-        key : "selection"}
-    ]);
+    const [dates, setDates] = useState([{startDate: new Date(), endDate: new Date(), key: "selection"}]);
     const [destination, setDestination] = useState("");
     const [propertyType, setPropertyType] = useState("");
-    const [options, setOptions] = useState({
-        adult : 1,
-        children : 0,
-        room : 1
-    })
+    const [options, setOptions] = useState({adult : 1, children : 0, room : 1});
 
     const { dispatch } = useContext(SearchContext);
     const navigate = useNavigate();
 
     const handleSearch = () => {
         dispatch({type: "NEW_SEARCH", payload: {propertyType, destination, dates, options}});
-        navigate("/hotels", {state : {propertyType, destination, dates, options}});
+        navigate("/hotels", {state : {propertyType,  destination, dates, options}});
     }
 
     return (

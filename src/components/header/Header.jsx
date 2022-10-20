@@ -73,9 +73,9 @@ const Header = ({type}) => {
                 </div>
                 {type !== "hotelsList" && 
                 <>
-                    <h1 className="headerTitle">A life of discounts? Its Genius.</h1>
+                    <h1 className="headerTitle">Find your next stay.</h1>
                     <p className="headerDesc">
-                        Get rewarded on your bookings and unlock instant savings of 10% or more with a free roomz account.
+                        Get rewarded on your bookings and unlock instant savings of 10% or more with a free roomz account and much more..
                     </p>
                     {!user && <button className="headerBtn">SignIn/Register</button>}
 
