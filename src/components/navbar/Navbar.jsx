@@ -4,7 +4,13 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 const Navbar = () => {
-    const { user } = useContext(AuthContext);
+    const { user, dispatch } = useContext(AuthContext);
+
+    const handleLogout = async (e) => {
+        localStorage.removeItem("user");
+        e.preventDefault();
+        dispatch({type: "LOGOUT"})
+    }
 
     return (
         <div className="navbar">
@@ -15,12 +21,14 @@ const Navbar = () => {
                 {user 
                     ? (<div className="navItems">
                         <span>{user.username}</span>
-                        <Link to="/login" onClick={() => localStorage.removeItem("user")}>
+                        <Link to="/" onClick={handleLogout}>
                             <button className="navButton">Logout</button>
                         </Link>
                     </div>)
                     : (<div className="navItems">
-                        <button className="navButton">Register</button>
+                        <Link to="/signup">
+                            <button className="navButton">Register</button>
+                        </Link>
                         <Link to="/login">
                             <button className="navButton">Login</button>
                         </Link>
