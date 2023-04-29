@@ -1,4 +1,4 @@
-import { useContext, useReducer } from "react";
+import { useContext } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SearchContext } from "../../context/SearchContext";
@@ -9,10 +9,10 @@ import "./FeaturedHotel.css";
 const HomeGuests = () => {
     const {data, loading } = useFetch("/v1/hotels?featured=true&limit=5");
 
-    const [destination, setDestination] = useState("");
-    const [propertyType, setPropertyType] = useState("");
-    const [dates, setDates] = useState([{startDate: new Date(), endDate: new Date(), key: "selection"}]);
-    const [options, setOptions] = useState({adult : 1, children : 0, room : 1});
+    const [destination] = useState("");
+    const [propertyType] = useState("");
+    const [dates] = useState([{startDate: new Date(), endDate: new Date(), key: "selection"}]);
+    const [options] = useState({adult : 1, children : 0, room : 1});
     const [hotelId, setHotelId] = useState("");
 
     const { dispatch } = useContext(SearchContext);

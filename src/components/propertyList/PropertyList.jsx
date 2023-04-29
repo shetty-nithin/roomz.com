@@ -12,14 +12,14 @@ const PropertyList = () => {
         {type: "cabin", img: "https://images.pexels.com/photos/1619311/pexels-photo-1619311.jpeg?cs=srgb&dl=pexels-james-wheeler-1619311.jpg&fm=jpg"}
     ];
 
-    const [dates, setDates] = useState([
+    const [dates] = useState([
         {startDate : new Date(),
         endDate : new Date(),
         key : "selection"}
     ]);
-    const [destination, setDestination] = useState("");
+    const [destination] = useState("");
     const [propertyType, setPropertyType] = useState("");
-    const [options, setOptions] = useState({
+    const [options] = useState({
         adult : 1,
         children : 0,
         room : 1

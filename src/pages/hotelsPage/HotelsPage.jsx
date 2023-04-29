@@ -14,7 +14,7 @@ const HotelsPage = () => {
     const [propertyType, setPropertyType] = useState(location.state.propertyType);
     const [dates, setDates] = useState(location.state.dates);
     const [openDate, setOpenDate] = useState(false);
-    const [options, setOptions] = useState(location.state.options);
+    const [options] = useState(location.state.options);
     const [min, setMin] = useState(undefined);
     const [max, setMax] = useState(undefined);
     const {data, loading, refetchData } = useFetch(`/v1/hotels?city=${destination || "Banglore"}&min=${min || 0}&max=${max || 9999}&type=${propertyType || "hotel"}`);

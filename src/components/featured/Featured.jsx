@@ -14,10 +14,10 @@ const Featured = () => {
         { name: "Kolkata", img: "https://images.pexels.com/photos/13739066/pexels-photo-13739066.jpeg?cs=srgb&dl=pexels-iqbal-farooz-13739066.jpg&fm=jpg"},
     ];
 
-    const [dates, setDates] = useState([{startDate: new Date(), endDate: new Date(), key: "selection"}]);
+    const [dates] = useState([{startDate: new Date(), endDate: new Date(), key: "selection"}]);
     const [destination, setDestination] = useState("");
-    const [propertyType, setPropertyType] = useState("");
-    const [options, setOptions] = useState({adult : 1, children : 0, room : 1});
+    const [propertyType] = useState("");
+    const [options] = useState({adult : 1, children : 0, room : 1});
 
     const { dispatch } = useContext(SearchContext);
     const navigate = useNavigate();

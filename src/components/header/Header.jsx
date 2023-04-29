@@ -20,7 +20,7 @@ const Header = ({type}) => {
     ]);
     const [openDate, setOpenDate] = useState(false);
     const [destination, setDestination] = useState("");
-    const [propertyType, setPropertyType] = useState("");
+    const [propertyType] = useState("");
     const [openOptions, setOpenOptions] = useState(false);
     const [options, setOptions] = useState({
         adult : 1,

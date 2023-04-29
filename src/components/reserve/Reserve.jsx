@@ -30,7 +30,7 @@ const Reserve = ({setOpenFloor, hotelId}) => {
 
     const isAvailable = (roomNumber) => {
         const isFound = roomNumber.unavailableDates.some(date => {
-            allDates.includes(new Date(date).getTime())
+            return allDates.includes(new Date(date).getTime())
         });
         return !isFound;
     }
@@ -58,7 +58,7 @@ const Reserve = ({setOpenFloor, hotelId}) => {
                 let rooms = [];
 
                 roomNumbers.map(roomNumber => {
-                    rooms.push(roomNumber.number);
+                    return rooms.push(roomNumber.number);
                 });
                 return rooms;
             }
@@ -67,7 +67,7 @@ const Reserve = ({setOpenFloor, hotelId}) => {
                 let roomIds = [];
 
                 roomNumbers.map(id => {
-                    roomIds.push(id._id);
+                    return roomIds.push(id._id);
                 });
                 return roomIds;
             }

@@ -6,7 +6,7 @@ import DriveFolderUploadeOutLinedIcon from "@mui/icons-material/DriveFolderUploa
 import "./SignupPage.css";
 
 const SignupPage = () => {
-    const [file, setFile] = useState("");
+    // const [file, setFile] = useState("");
 
     const [signupInfo, setSignupinfo] = useState({
         username: undefined,
@@ -49,7 +49,8 @@ const SignupPage = () => {
                 <input type="text" placeholder="city" id="city" onChange={handleChange} className="signupInput" />
                 <input type="text" placeholder="phone" id="phone" onChange={handleChange} className="signupInput" />
                 <input type="password" placeholder="password" id="password" onChange={handleChange} className="signupInput" />
-                <input type="file" id="file" onChange={e=>(setFile(e.target.files[0]))} style={{display : "none"}}/>
+                <input type="file" id="file" onChange={e=>(setSignupinfo(prev => ({...prev, img: e.target.files[0]})))} style={{display : "none"}}/>
+                {/* <input type="file" id="file" onChange={e=>(setFile(e.target.files[0]))} style={{display : "none"}}/> */}
                 <label htmlFor="file">Image : <DriveFolderUploadeOutLinedIcon className="icon"/></label>
                 <button disabled={loading} onClick={handleSignup} className="signupButton">Signup</button>
                 {error && <span>{error.message}</span>}
