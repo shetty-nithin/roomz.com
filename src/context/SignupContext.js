@@ -1,6 +1,5 @@
 import { createContext, useReducer } from "react";
 
-
 const DEFAULT_SIGNUP_STATE = {
     loading: false,
     error: null

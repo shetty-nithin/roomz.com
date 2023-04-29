@@ -1,4 +1,4 @@
-import axios from "axios";
+import { makeRequest } from "../../axios.js"
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { SignupContext } from "../../context/SignupContext";
@@ -30,7 +30,7 @@ const SignupPage = () => {
         dispatch({type: "SIGNUP_START"});
 
         try {
-            const res = await axios.post("/v1/auth/signup", signupInfo);
+            const res = await makeRequest.post("/v1/auth/signup", signupInfo);
             dispatch({type: "SIGNUP_SUCCESS", payload: res.data.details});
             navigate("/")
         }

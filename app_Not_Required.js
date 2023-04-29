@@ -13,5 +13,5 @@ if(process.env.NODE_ENV === "production"){
 
 app.listen(PORT, (err) => {
     if(err) return console.log("error is : ", err);
-    console.log("client server is up.");
+    console.log(`client server is up : ${PORT}.`);
 })

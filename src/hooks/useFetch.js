@@ -1,5 +1,5 @@
+import { makeRequest } from "../axios.js";
 const { useState, useEffect } = require("react");
-const axios = require("axios");
 
 
 const useFetch = (url) => {
@@ -12,12 +12,12 @@ const useFetch = (url) => {
             setLoading(true); 
             
             try {
-                const res = await axios.get(url);
+                const res = await makeRequest.get(url);
                 setData(res.data);
             } catch (err) {
                setError(err);
-            }
 
+            }
             setLoading(false);
         }
         fetchData();
@@ -28,7 +28,7 @@ const useFetch = (url) => {
         setLoading(true);
 
         try {
-            const res = await axios.get(url);
+            const res = await makeRequest.get(url);
             setData(res.data);
         } catch (err) {
             setError(err);

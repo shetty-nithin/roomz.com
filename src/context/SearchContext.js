@@ -1,6 +1,5 @@
 import { createContext, useReducer } from "react";
 
-
 const DEFAULT_STATE = {
     type: undefined, 
     city: undefined,

@@ -1,13 +1,12 @@
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "axios";
 import { useContext } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SearchContext } from "../../context/SearchContext";
 import useFetch from "../../hooks/useFetch";
 import "./Reserve.css";
-
+import { makeRequest } from "../../axios.js"
 
 const Reserve = ({setOpenFloor, hotelId}) => {
     const [selectedRooms, setSelectedRooms] = useState([]);
@@ -51,7 +50,7 @@ const Reserve = ({setOpenFloor, hotelId}) => {
     const handleClick = async () => {
         try {
             await Promise.all(selectedRooms.map(roomId => {
-                const res = axios.put(`/v1/rooms/availability/${roomId}`,{dates: allDates});
+                const res = makeRequest.put(`/v1/rooms/availability/${roomId}`,{dates: allDates});
                 return res.data;
             }));
 
@@ -74,7 +73,7 @@ const Reserve = ({setOpenFloor, hotelId}) => {
             }
 
             await Promise.all(data.map(item => {
-                const res = axios.post("/v1/bookings", {
+                const res = makeRequest.post("/v1/bookings", {
                     totalCost: allDates.length*item.price,
                     hotelId: item.hotel,
                     roomType: item.title,

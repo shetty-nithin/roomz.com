@@ -1,6 +1,5 @@
 import { createContext, useEffect, useReducer } from "react";
 
-
 const DEFAULT_STATE = {
     user: JSON.parse(localStorage.getItem("user")) || null,
     loading: false,
